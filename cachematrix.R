@@ -1,15 +1,27 @@
 ## Put comments here that give an overall description of what your
 ## functions do
 
-## Write a short comment describing this function
+# Paso 1. Cambiar numeric a matrix.
+# Esto permite incoporar los datos tipo Matrix para obtener su inversa
 
 makeCacheMatrix <- function(x = matrix()) {
-
-}
-
-
-## Write a short comment describing this function
+        m <- NULL
+        set <- function(y) {
+                x <<- y
+                m <<- NULL }
+get <- function() x
+        setinverse <- function(solve) m <<- solve
+        getinverse <- function() m
+        list(set = set, get = get,
+             setinverse = setinverse,
+             getinverse = getinverse)      }
 
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
-}
+        m <- x$getinverse()
+        if(!is.null(m))   {
+                message("getting cached data")
+                return(m) }
+        data <- x$get()
+        m <- solve(data, ...)
+        x$setinverse(m)
+        m                     }
